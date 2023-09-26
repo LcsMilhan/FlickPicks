@@ -3,15 +3,28 @@ package com.lcsmilhan.flickpicks.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.LifecycleOwner
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.lcsmilhan.flickpicks.domain.model.Movie
+import com.lcsmilhan.flickpicks.domain.model.Video
 import com.lcsmilhan.flickpicks.ui.theme.FlickPicksTheme
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import dagger.hilt.android.AndroidEntryPoint
 
+@OptIn(ExperimentalGlideComposeApi::class)
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +35,26 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val video = Video(
+                        id = "",
+                        key = "cg5z7wgOUig",
+                        name = "test"
+                    )
+                    val movies = Movie(
+                        genreIds = listOf(28,878,12),
+                        overview = "Recent college grad Jaime Reyes",
+                        video = false,
+                        title = "",
+                        thumbImage = "/mXLOHHc1Zeuwsl4xYKjKh2280oL.jpg",
+                        backgroundImage = "/H6j5smdpRqP9a8UnhWp6zfl0SC.jpg",
+                        id = 565770,
+                        voteAverage = 7.1,
+                        releaseDate = "2023-08-23"
+                    )
+                    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+//                        GlideImage(model = Constants.getPosterPath(movies.thumbImage), contentDescription = "")
+                        YoutubePlayer(youtubeVideoId = video.key, lifecycleOwner = LocalLifecycleOwner.current)
+                    }
                 }
             }
         }
@@ -30,17 +62,24 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun YoutubePlayer(
+    youtubeVideoId: String,
+    lifecycleOwner: LifecycleOwner
+) {
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FlickPicksTheme {
-        Greeting("Android")
-    }
+    AndroidView(
+        modifier = Modifier.fillMaxWidth(),
+        factory = { context ->
+            YouTubePlayerView(context).apply {
+                lifecycleOwner.lifecycle.addObserver(this)
+
+                addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        youTubePlayer.cueVideo(youtubeVideoId, 0f)
+                    }
+                })
+            }
+        }
+    )
+
 }
