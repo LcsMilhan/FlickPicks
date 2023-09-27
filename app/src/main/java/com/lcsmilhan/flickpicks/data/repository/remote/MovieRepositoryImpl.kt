@@ -30,34 +30,6 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTopRatedMovies(): Flow<Resource<List<MovieDto>>> = flow {
-        try {
-            emit(Resource.Loading())
-            val topRatedMovies = api.getTopRatedMovies()
-            emit(Resource.Success(listOf(topRatedMovies)))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error("Couldn't reach server. Check your internet connection"))
-        } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        }
-    }
-
-    override suspend fun getUpcomingMovies(): Flow<Resource<List<MovieDto>>> = flow {
-        try {
-            emit(Resource.Loading())
-            val upcomingMovies = api.getUpcomingMovies()
-            emit(Resource.Success(listOf(upcomingMovies)))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error("Couldn't reach server. Check your internet connection"))
-        } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        }
-    }
-
     override suspend fun getSearchMovies(keyword: String): Flow<Resource<List<MovieDto>>> = flow {
         try {
             emit(Resource.Loading())
@@ -72,18 +44,8 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMovieGenres(): Flow<Resource<List<GenresDto>>> = flow {
-        try {
-            emit(Resource.Loading())
-            val genres = api.getMovieGenres()
-            emit(Resource.Success(listOf(genres)))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error("Couldn't reach server. Check your internet connection"))
-        } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        }
+    override suspend fun getMovieGenres(): List<GenresDto> {
+        return listOf(api.getMovieGenres())
     }
 
     override suspend fun getMovieTrailers(id: Int): Flow<Resource<List<VideoDto>>> = flow {

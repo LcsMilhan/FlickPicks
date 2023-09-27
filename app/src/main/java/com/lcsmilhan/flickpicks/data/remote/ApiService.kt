@@ -15,16 +15,6 @@ interface ApiService {
         @Query("api_key") apiKey: String = TMDB_API_KEY,
     ): MovieDto
 
-    @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(
-        @Query("api_key") apiKey: String = TMDB_API_KEY,
-    ): MovieDto
-
-    @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(
-        @Query("api_key") apiKey: String = TMDB_API_KEY,
-    ): MovieDto
-
     @GET("search/movie")
     suspend fun getSearchMovie(
         @Query("query") keyword: String,
