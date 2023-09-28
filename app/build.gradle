@@ -69,15 +69,8 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:2.5.2"
-//    kapt "androidx.room:room-compiler:2.5.2"
     annotationProcessor "androidx.room:room-compiler:2.5.2"
     implementation "androidx.room:room-ktx:2.5.2"
-
-
-    // Ktor
-    implementation "io.ktor:ktor-server-core:2.3.4"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:2.3.4"
-    implementation "io.ktor:ktor-client-core:2.3.4"
 
     // Compose dependencies
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2"
@@ -85,8 +78,8 @@ dependencies {
     implementation "androidx.compose.compiler:compiler:1.5.3"
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
 
     //Dagger - Hilt
