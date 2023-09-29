@@ -10,9 +10,4 @@ data class MoviesState(
     val movieFilter: MovieFilter = MovieFilter.Genre(OrderType.Descending),
     val isOrderSectionVisible: Boolean = false,
     val searchResults: List<Movie> = emptyList(),
-    val currentQuery: String = "",
-    val error: String = "",
-    val isLoading: Boolean = false,
-    val genres: List<Genre> = emptyList(),
-    val selectedGenre: Genre? = null
 )

@@ -8,9 +8,5 @@ data class MovieDetails(
     val tagline: String?,
     val title: String,
     val video: Boolean,
-    val backgroundImage: String?,
-    val thumbImage: String?,
-    val releaseDate: String,
-    val voteAverage: Double
 )
 

@@ -71,10 +71,4 @@ object AppModule {
         return MovieDbRepositoryImpl(db.moviesDao)
     }
 
-    @Singleton
-    @Provides
-    fun provideMovieRepository(movieRepositoryImpl: MovieRepositoryImpl): MovieRepository {
-        return movieRepositoryImpl
-    }
-
 }
