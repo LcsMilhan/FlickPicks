@@ -34,7 +34,6 @@ class MoviesViewModel @Inject constructor(
             is MoviesEvent.FilterByGenre -> {
                 viewModelScope.launch {
                     try {
-                        _moviesState.value = _moviesState.value.copy(isLoading = true)
                         val allGenres = movieRepository.getMovieGenres().map { it.toGenre() }
                         val selectedGenre = event.movieGenre.firstOrNull()
                         val filteredGenres = if (selectedGenre != null) {
@@ -45,14 +44,9 @@ class MoviesViewModel @Inject constructor(
                         _moviesState.value = _moviesState.value.copy(
                             movieFilter = MovieFilter.Genre(OrderType.Descending),
                             isOrderSectionVisible = false,
-                            genres = filteredGenres,
-                            selectedGenre = selectedGenre,
-                            isLoading = false
                         )
                     } catch (e: Exception) {
                         _moviesState.value = _moviesState.value.copy(
-                            error = "An unexpected error occurred",
-                            isLoading = false
                         )
                     }
                 }
@@ -60,7 +54,6 @@ class MoviesViewModel @Inject constructor(
             is MoviesEvent.Search -> {
                 viewModelScope.launch {
                     try {
-                        _moviesState.value = _moviesState.value.copy(isLoading = true)
                         val searchResultsFlow = movieRepository.getSearchMovies(event.keyword)
                         val searchResultsList = mutableListOf<Movie>()
                         searchResultsFlow.collect { resource ->
@@ -71,20 +64,14 @@ class MoviesViewModel @Inject constructor(
                                 }
                             } else if (resource is Resource.Error) {
                                 _moviesState.value = _moviesState.value.copy(
-                                    error = "An unexpected error occurred",
-                                    isLoading = false
                                 )
                             }
                         }
                         _moviesState.value = _moviesState.value.copy(
                             searchResults = searchResultsList,
-                            currentQuery = event.keyword,
-                            isLoading = false
                         )
                     } catch (e: Exception) {
                         _moviesState.value = _moviesState.value.copy(
-                            error = "An unexpected error occurred",
-                            isLoading = false
                         )
                     }
                 }
