@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.domain.model
+package com.lcsmilhan.flickpicks.domain.remote.model
 
 data class Genre(
     val id: Int,

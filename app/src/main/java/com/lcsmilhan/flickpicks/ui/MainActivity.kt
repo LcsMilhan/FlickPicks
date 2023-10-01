@@ -6,9 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.lcsmilhan.flickpicks.presentation.movies.HomeScreen
+import com.lcsmilhan.flickpicks.presentation.navigation.FlickPicksNav
 import com.lcsmilhan.flickpicks.ui.theme.FlickPicksTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,11 +25,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen()
+                    FlickPickApp()
                 }
             }
         }
     }
+}
+
+@Composable
+fun FlickPickApp() {
+    FlickPicksNav()
 }
 
 //val video = Video(

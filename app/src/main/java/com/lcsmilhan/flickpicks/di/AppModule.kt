@@ -1,15 +1,9 @@
 package com.lcsmilhan.flickpicks.di
 
-import android.app.Application
-import androidx.room.Room
 import com.lcsmilhan.flickpicks.common.Constants.BASE_URL
-import com.lcsmilhan.flickpicks.common.Constants.DATABASE_NAME
-import com.lcsmilhan.flickpicks.data.local.MovieDatabase
 import com.lcsmilhan.flickpicks.data.remote.ApiService
-import com.lcsmilhan.flickpicks.data.repository.local.MovieDbRepositoryImpl
-import com.lcsmilhan.flickpicks.data.repository.remote.MovieRepositoryImpl
-import com.lcsmilhan.flickpicks.domain.repository.local.MovieDbRepository
-import com.lcsmilhan.flickpicks.domain.repository.remote.MovieRepository
+import com.lcsmilhan.flickpicks.data.remote.repository.MovieRepositoryImpl
+import com.lcsmilhan.flickpicks.domain.remote.repository.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,20 +49,10 @@ object AppModule {
             .create(ApiService::class.java)
     }
 
-    @Singleton
     @Provides
-    fun providesMovieDatabase(app: Application): MovieDatabase {
-        return Room.databaseBuilder(
-            app,
-            MovieDatabase::class.java,
-            DATABASE_NAME
-        ).build()
-    }
-
     @Singleton
-    @Provides
-    fun providesMovieDbRepository(db: MovieDatabase): MovieDbRepository {
-        return MovieDbRepositoryImpl(db.moviesDao)
+    fun provideMovieRepository(apiService: ApiService): MovieRepository {
+        return MovieRepositoryImpl(apiService)
     }
 
 }
