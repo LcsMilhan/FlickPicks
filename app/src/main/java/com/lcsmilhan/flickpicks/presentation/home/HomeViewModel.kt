@@ -1,7 +1,6 @@
-package com.lcsmilhan.flickpicks.presentation.home_screen
+package com.lcsmilhan.flickpicks.presentation.home
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lcsmilhan.flickpicks.common.Resource
@@ -16,8 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: MovieRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val repository: MovieRepository
 ) : ViewModel() {
 
     private val _popularState = MutableStateFlow(HomeState())

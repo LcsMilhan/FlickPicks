@@ -8,5 +8,6 @@ data class MovieDetailsState(
     val movieDetails: Details? = null,
     @SerializedName("results") val movieTrailers: List<Video> = emptyList(),
     val isLoading: Boolean = false,
-    val error: String = ""
+    val error: String = "",
+    val isFavorite: Boolean = false
 )

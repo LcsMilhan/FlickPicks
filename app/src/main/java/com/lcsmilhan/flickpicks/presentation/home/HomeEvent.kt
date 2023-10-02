@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.presentation.home_screen
+package com.lcsmilhan.flickpicks.presentation.home
 
 sealed class HomeEvent {
     data class SelectedGenre(val genreId: Int): HomeEvent()

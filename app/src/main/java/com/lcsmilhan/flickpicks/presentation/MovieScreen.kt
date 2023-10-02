@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,8 +45,8 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.lcsmilhan.flickpicks.common.Constants
 import com.lcsmilhan.flickpicks.domain.remote.model.Genre
 import com.lcsmilhan.flickpicks.domain.remote.model.Movie
-import com.lcsmilhan.flickpicks.presentation.home_screen.HomeEvent
-import com.lcsmilhan.flickpicks.presentation.home_screen.HomeViewModel
+import com.lcsmilhan.flickpicks.presentation.home.HomeEvent
+import com.lcsmilhan.flickpicks.presentation.home.HomeViewModel
 import com.lcsmilhan.flickpicks.presentation.navigation.Screen
 
 
@@ -61,7 +60,7 @@ fun MovieScreen(
     val popularState by homeViewModel.popularState.collectAsStateWithLifecycle()
     val topRatedState by homeViewModel.topRatedState.collectAsStateWithLifecycle()
     val upcomingState by homeViewModel.upcomingState.collectAsStateWithLifecycle()
-    val searchResults by homeViewModel.searchResults.collectAsState()
+    val searchResults by homeViewModel.searchResults.collectAsStateWithLifecycle()
     val genreState by homeViewModel.genreState.collectAsStateWithLifecycle()
 
     var selectedGenre by remember { mutableStateOf<Genre?>(null) }
@@ -109,7 +108,7 @@ fun MovieScreen(
                     modifier = Modifier
                         .clickable {
                             navController.navigate(
-                                route = Screen.MovieDetails.route +
+                                route = Screen.MovieDetailsScreen.route +
                                         "?movieId=${movie.id}"
                             )
                         },
@@ -167,7 +166,7 @@ fun MovieScreen(
                         MovieItem(
                             modifier = Modifier
                                 .clickable {
-                                    navController.navigate("${Screen.MovieDetails.route}/${popularMovies.id}")
+                                    navController.navigate("${Screen.MovieDetailsScreen.route}/${popularMovies.id}")
                                 },
                             movie = popularMovies
                         )
@@ -183,7 +182,7 @@ fun MovieScreen(
                             modifier = Modifier
                                 .clickable {
                                     navController.navigate(
-                                        route = Screen.MovieDetails.route +
+                                        route = Screen.MovieDetailsScreen.route +
                                                 "?movieId=${topRatedMovies.id}"
                                     )
                                 },
@@ -201,7 +200,7 @@ fun MovieScreen(
                             modifier = Modifier
                                 .clickable {
                                     navController.navigate(
-                                        route = Screen.MovieDetails.route +
+                                        route = Screen.MovieDetailsScreen.route +
                                                 "?movieId=${upcomingMovies.id}"
                                     )
                                 },

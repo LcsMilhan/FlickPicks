@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.presentation.home_screen
+package com.lcsmilhan.flickpicks.presentation.home
 
 import com.google.gson.annotations.SerializedName
 import com.lcsmilhan.flickpicks.domain.remote.model.Genre

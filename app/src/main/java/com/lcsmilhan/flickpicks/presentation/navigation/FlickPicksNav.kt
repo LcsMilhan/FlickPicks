@@ -6,8 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.lcsmilhan.flickpicks.presentation.FavoriteScreen
 import com.lcsmilhan.flickpicks.presentation.MovieDetails
 import com.lcsmilhan.flickpicks.presentation.MovieScreen
+import com.lcsmilhan.flickpicks.presentation.WatchListScreen
 
 @Composable
 fun FlickPicksNav() {
@@ -22,14 +24,21 @@ fun FlickPicksNav() {
             MovieScreen(navController = navController)
         }
         composable(
-            route = Screen.MovieDetails.route + "/{movie_id}",
+            route = Screen.MovieDetailsScreen.route + "/{movie_id}",
             arguments = listOf(navArgument(name = "movie_id") {
                 type = NavType.IntType
             })
         ) {navBackStackEntry ->
-            navBackStackEntry.arguments?.getInt("movie_id")?.let {
-                MovieDetails()
+            val movieId = navBackStackEntry.arguments?.getInt("movie_id")
+            movieId?.let {
+                MovieDetails(navController = navController, movieId = it)
             }
+        }
+        composable(Screen.FavoritesScreen.route) {
+            FavoriteScreen()
+        }
+        composable(Screen.WatchListScreen.route) {
+            WatchListScreen()
         }
     }
 
