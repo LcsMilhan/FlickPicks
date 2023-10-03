@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.FlickPicks" parent="android:Theme.Material.Light.NoActionBar" />
+    
+    <style 
+        name="Theme.FlickPicks" 
+        parent="android:Theme.Material.Light.NoActionBar" />
+    <style
+        name="Theme.SplashScreen"
+        parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:statusBarColor">#FF003547</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+    
 </resources>

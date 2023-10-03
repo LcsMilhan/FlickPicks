@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.presentation.favorites
+package com.lcsmilhan.flickpicks.presentation.favorites_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

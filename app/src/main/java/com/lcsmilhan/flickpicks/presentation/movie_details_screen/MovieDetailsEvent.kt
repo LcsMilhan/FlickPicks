@@ -1,7 +1,6 @@
-package com.lcsmilhan.flickpicks.presentation.movie_details
+package com.lcsmilhan.flickpicks.presentation.movie_details_screen
 
 sealed class MovieDetailsEvent {
-    data class OnTrailerClick(val movieId: Int) : MovieDetailsEvent()
     data class OnAddToFavorites(val movieId: Int) : MovieDetailsEvent()
     data class OnRemoveFromFavorites(val movieId: Int) : MovieDetailsEvent()
     data class OnAddToWatchList(val movieId: Int) : MovieDetailsEvent()

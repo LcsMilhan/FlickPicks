@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.presentation.watch_list
+package com.lcsmilhan.flickpicks.presentation.watch_list_screen
 
 import com.lcsmilhan.flickpicks.domain.local.model.WatchList
 

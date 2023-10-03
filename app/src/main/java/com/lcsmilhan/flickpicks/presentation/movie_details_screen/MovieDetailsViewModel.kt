@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.presentation.movie_details
+package com.lcsmilhan.flickpicks.presentation.movie_details_screen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -42,6 +42,7 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             savedStateHandle.get<Int>("movie_id")?.let {
                 loadMovieDetails(it)
+                loadMovieTrailers(it)
                 loadFavorites()
                 loadWatchList()
             }
@@ -50,9 +51,6 @@ class MovieDetailsViewModel @Inject constructor(
 
     fun onEvent(event: MovieDetailsEvent) {
         when(event) {
-            is MovieDetailsEvent.OnTrailerClick -> {
-                loadMovieTrailers(event.movieId)
-            }
             is MovieDetailsEvent.OnAddToFavorites -> {
                 viewModelScope.launch {
                     _movieDetails.value.movieDetails?.toFavorites()?.let {

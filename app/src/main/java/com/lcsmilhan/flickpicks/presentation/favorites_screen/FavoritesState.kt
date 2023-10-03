@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.presentation.favorites
+package com.lcsmilhan.flickpicks.presentation.favorites_screen
 
 import com.lcsmilhan.flickpicks.domain.local.model.Favorites
 

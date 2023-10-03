@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.lcsmilhan.flickpicks.presentation.watch_list.WatchListViewModel
+import com.lcsmilhan.flickpicks.presentation.watch_list_screen.WatchListViewModel
 
 @Composable
 fun WatchListScreen(

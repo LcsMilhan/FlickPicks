@@ -1,4 +1,4 @@
-package com.lcsmilhan.flickpicks.presentation.home
+package com.lcsmilhan.flickpicks.presentation.explorer_screen
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -14,23 +14,23 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class ExplorerViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _popularState = MutableStateFlow(HomeState())
+    private val _popularState = MutableStateFlow(ExplorerState())
     val popularState = _popularState.asStateFlow()
 
-    private val _topRatedState = MutableStateFlow(HomeState())
+    private val _topRatedState = MutableStateFlow(ExplorerState())
     val topRatedState = _topRatedState.asStateFlow()
 
-    private val _upcomingState = MutableStateFlow(HomeState())
+    private val _upcomingState = MutableStateFlow(ExplorerState())
     val upcomingState = _upcomingState.asStateFlow()
 
-    private val _genreState = MutableStateFlow(HomeState())
+    private val _genreState = MutableStateFlow(ExplorerState())
     val genreState = _genreState.asStateFlow()
 
-    private val _searchResults = MutableStateFlow(HomeState())
+    private val _searchResults = MutableStateFlow(ExplorerState())
     val searchResults = _searchResults.asStateFlow()
 
     private var allGenres: List<Genre>? = null
@@ -48,24 +48,21 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: HomeEvent) {
+    fun onEvent(event: ExplorerEvent) {
         when(event){
-            is HomeEvent.OnMovieClick -> {
-                currentMovieId = event.movieId
-            }
-            is HomeEvent.OnSearchClick -> {
+            is ExplorerEvent.OnSearchClick -> {
                 viewModelScope.launch {
                     searchQuery = event.keyword
                     searchMovies(searchQuery!!)
                 }
             }
-            is HomeEvent.SelectedGenre -> {
+            is ExplorerEvent.SelectedGenre -> {
                 viewModelScope.launch {
                     selectedGenre = event.genreId
                     loadMoviesByGenre(selectedGenre!!)
                 }
             }
-            HomeEvent.CleanFilter -> {
+            ExplorerEvent.CleanFilter -> {
                 selectedGenre = null
             }
         }
@@ -75,17 +72,17 @@ class HomeViewModel @Inject constructor(
         repository.getSearchMovies(keyword).collect { result ->
             when(result) {
                 is Resource.Success -> {
-                    _searchResults.value = HomeState(
+                    _searchResults.value = ExplorerState(
                         movies = result.data ?: emptyList()
                     )
                 }
                 is Resource.Error -> {
-                    _searchResults.value = HomeState(
+                    _searchResults.value = ExplorerState(
                         error = "An unexpected error occurred"
                     )
                 }
                 is Resource.Loading -> {
-                    _searchResults.value = HomeState(isLoading = true)
+                    _searchResults.value = ExplorerState(isLoading = true)
                 }
             }
         }
@@ -95,17 +92,17 @@ class HomeViewModel @Inject constructor(
         repository.getPopularMovies().collect { result ->
             when(result) {
                 is Resource.Success -> {
-                    _popularState.value = HomeState(
+                    _popularState.value = ExplorerState(
                         movies = result.data ?: emptyList()
                     )
                 }
                 is Resource.Error -> {
-                    _popularState.value = HomeState(
+                    _popularState.value = ExplorerState(
                         error = result.message ?: "An unexpected error occurred"
                     )
                 }
                 is Resource.Loading -> {
-                    _popularState.value = HomeState(
+                    _popularState.value = ExplorerState(
                         isLoading =  true
                     )
                 }
@@ -117,17 +114,17 @@ class HomeViewModel @Inject constructor(
         repository.getTopRatedMovies().collect { result ->
             when(result) {
                 is Resource.Success -> {
-                    _topRatedState.value = HomeState(
+                    _topRatedState.value = ExplorerState(
                         movies = result.data ?: emptyList()
                     )
                 }
                 is Resource.Error -> {
-                    _topRatedState.value = HomeState(
+                    _topRatedState.value = ExplorerState(
                         error = result.message ?: "An unexpected error occurred"
                     )
                 }
                 is Resource.Loading -> {
-                    _topRatedState.value = HomeState(
+                    _topRatedState.value = ExplorerState(
                         isLoading =  true
                     )
                 }
@@ -139,17 +136,17 @@ class HomeViewModel @Inject constructor(
         repository.getUpcomingMovies().collect { result ->
             when(result) {
                 is Resource.Success -> {
-                    _upcomingState.value = HomeState(
+                    _upcomingState.value = ExplorerState(
                         movies = result.data ?: emptyList()
                     )
                 }
                 is Resource.Error -> {
-                    _upcomingState.value = HomeState(
+                    _upcomingState.value = ExplorerState(
                         error = result.message ?: "An unexpected error occurred"
                     )
                 }
                 is Resource.Loading -> {
-                    _upcomingState.value = HomeState(
+                    _upcomingState.value = ExplorerState(
                         isLoading =  true
                     )
                 }
@@ -162,18 +159,18 @@ class HomeViewModel @Inject constructor(
             when(result) {
                 is Resource.Success -> {
                     allGenres = result.data ?: emptyList()
-                    _genreState.value = HomeState(
+                    _genreState.value = ExplorerState(
                         genres = result.data ?: emptyList()
                     )
 //                    Log.d("viewmodel", "$allGenres")
                 }
                 is Resource.Error -> {
-                    _genreState.value = HomeState(
+                    _genreState.value = ExplorerState(
                         error = "An unexpected error occurred"
                     )
                 }
                 is Resource.Loading -> {
-                    _genreState.value = HomeState(isLoading = true)
+                    _genreState.value = ExplorerState(isLoading = true)
                 }
             }
         }
