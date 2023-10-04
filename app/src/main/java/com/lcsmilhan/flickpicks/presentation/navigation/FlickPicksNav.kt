@@ -1,5 +1,6 @@
 package com.lcsmilhan.flickpicks.presentation.navigation
 
+
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,10 +19,12 @@ fun FlickPicksNav() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.ExplorerScreen.route
+        startDestination = Screen.ExplorerScreen.route,
     ) {
         composable(Screen.ExplorerScreen.route) {
-            ExplorerScreen(navController = navController)
+            ExplorerScreen(
+                navController = navController
+            )
         }
         composable(
             route = Screen.MovieDetailsScreen.route + "/{movie_id}",

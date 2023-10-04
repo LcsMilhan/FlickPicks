@@ -27,7 +27,10 @@ class SplashActivity : ComponentActivity() {
     private fun SplashScreen() {
         LaunchedEffect(true) {
             delay(2000)
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            val mainIntent = Intent(this@SplashActivity, MainActivity::class.java)
+            mainIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(mainIntent)
+            finish()
         }
     }
 }

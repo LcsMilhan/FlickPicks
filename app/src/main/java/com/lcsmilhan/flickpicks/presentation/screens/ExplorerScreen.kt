@@ -55,6 +55,7 @@ fun ExplorerScreen(
     val filteredTopRatedMovies = topRatedState.movies.filterMoviesByGenre(selectedGenre)
     val filteredUpcomingMovies = upcomingState.movies.filterMoviesByGenre(selectedGenre)
 
+
     Scaffold(
         topBar = {
             SearchBarItem(
