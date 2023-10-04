@@ -1,5 +1,6 @@
 package com.lcsmilhan.flickpicks.presentation.movie_details_screen.component
 
+import android.graphics.Color.parseColor
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,9 +23,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.*
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -49,6 +52,7 @@ fun MovieDetailsItem(
     backImage: String,
     releaseDate: String,
     voteAverage: Double,
+    title: String,
     overview: String,
     onFavoriteClick: () -> Unit,
     onWatchListClick: () -> Unit,
@@ -73,6 +77,14 @@ fun MovieDetailsItem(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
         )
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.tertiary,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.align(CenterHorizontally)
+        )
         Row(
             Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -88,7 +100,7 @@ fun MovieDetailsItem(
                 imageVector = Icons.Default.Star,
                 contentDescription = "Star icon",
                 modifier = Modifier.size(22.dp),
-                tint = Color(android.graphics.Color.parseColor("#ac8f4a")),
+                tint = Color(parseColor("#ac8f4a")),
             )
             Spacer(modifier = Modifier.width(5.dp))
             val decimalFormat = DecimalFormat("#.#")

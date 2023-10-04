@@ -20,17 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.lcsmilhan.flickpicks.presentation.favorites_screen.FavoritesViewModel
+import com.lcsmilhan.flickpicks.presentation.favorites_screen.component.FavoritesItem
 import com.lcsmilhan.flickpicks.presentation.navigation.Screen
 import com.lcsmilhan.flickpicks.presentation.screens.component.BottomBarItem
-import com.lcsmilhan.flickpicks.presentation.watch_list_screen.WatchListViewModel
-import com.lcsmilhan.flickpicks.presentation.watch_list_screen.component.WatchListItem
 
 @Composable
-fun WatchListScreen(
-    viewModel: WatchListViewModel = hiltViewModel(),
+fun FavoritesScreen(
+    viewModel: FavoritesViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    val watchListState by viewModel.watchListState.collectAsStateWithLifecycle()
+    val favoriteState by viewModel.favoritesState.collectAsStateWithLifecycle()
 
     Scaffold(
         bottomBar = {
@@ -43,13 +43,13 @@ fun WatchListScreen(
                 .padding(innerPadding)
         ) {
             Text(
-                text = "Watch List",
+                text = "Favorites List",
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(start = 15.dp, top = 20.dp)
             )
             when {
-                watchListState.isLoading -> {
+                favoriteState.isLoading -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -62,19 +62,19 @@ fun WatchListScreen(
                         )
                     }
                 }
-                watchListState.error.isNotEmpty() -> {
+                favoriteState.error.isNotEmpty() -> {
                     Text(
-                        text = watchListState.error,
+                        text = favoriteState.error,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.error
                     )
                 }
-                watchListState.myWatchList.isNotEmpty() -> {
+                favoriteState.myFavorites.isNotEmpty() -> {
                     LazyColumn(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        items(watchListState.myWatchList) { movie ->
-                            WatchListItem(
+                        items(favoriteState.myFavorites) { movie ->
+                            FavoritesItem(
                                 onItemClick = {
                                     navController.navigate(
                                         "${Screen.MovieDetailsScreen.route}/${it.id}"

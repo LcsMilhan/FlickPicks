@@ -36,7 +36,6 @@ class ExplorerViewModel @Inject constructor(
     private var allGenres: List<Genre>? = null
     private var selectedGenre: Int? = null
     private var searchQuery: String? = null
-    private var currentMovieId: Int? = null
 
     init {
         viewModelScope.launch {
@@ -162,7 +161,6 @@ class ExplorerViewModel @Inject constructor(
                     _genreState.value = ExplorerState(
                         genres = result.data ?: emptyList()
                     )
-//                    Log.d("viewmodel", "$allGenres")
                 }
                 is Resource.Error -> {
                     _genreState.value = ExplorerState(

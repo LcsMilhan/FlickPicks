@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.lcsmilhan.flickpicks.domain.remote.model.Genre
 import com.lcsmilhan.flickpicks.domain.remote.model.Movie
 import com.lcsmilhan.flickpicks.presentation.explorer_screen.ExplorerEvent
@@ -40,7 +40,7 @@ import com.lcsmilhan.flickpicks.presentation.screens.component.BottomBarItem
 @Composable
 fun ExplorerScreen(
     viewModel: ExplorerViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavHostController
 ) {
     val popularState by viewModel.popularState.collectAsStateWithLifecycle()
     val topRatedState by viewModel.topRatedState.collectAsStateWithLifecycle()
@@ -69,11 +69,7 @@ fun ExplorerScreen(
             )
         },
         bottomBar = {
-            BottomBarItem(
-                onExploreClick = { navController.navigate(Screen.ExplorerScreen.route) },
-                onMyWatchListClick = { navController.navigate(Screen.WatchListScreen.route) },
-                onMyFavoritesClick = { navController.navigate(Screen.FavoritesScreen.route) }
-            )
+            BottomBarItem(navController = navController)
         }
     ) { innerPadding ->
         Column(

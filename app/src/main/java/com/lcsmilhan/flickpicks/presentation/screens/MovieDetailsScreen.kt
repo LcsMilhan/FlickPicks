@@ -12,19 +12,18 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.lcsmilhan.flickpicks.R
 import com.lcsmilhan.flickpicks.presentation.movie_details_screen.MovieDetailsEvent
 import com.lcsmilhan.flickpicks.presentation.movie_details_screen.MovieDetailsViewModel
 import com.lcsmilhan.flickpicks.presentation.movie_details_screen.component.MovieDetailsItem
-import com.lcsmilhan.flickpicks.presentation.navigation.Screen
 import com.lcsmilhan.flickpicks.presentation.screens.component.BottomBarItem
 
 @Composable
 fun MovieDetailsScreen(
     viewModel: MovieDetailsViewModel = hiltViewModel(),
     movieId: Int,
-    navController: NavController,
+    navController: NavHostController,
 ) {
     val detailsState by viewModel.movieDetails.collectAsStateWithLifecycle()
     val trailerState by viewModel.movieTrailers.collectAsState()
@@ -49,11 +48,7 @@ fun MovieDetailsScreen(
 
     Scaffold(
         bottomBar = {
-            BottomBarItem(
-                onExploreClick = { navController.navigate(Screen.ExplorerScreen.route) },
-                onMyWatchListClick = { navController.navigate(Screen.WatchListScreen.route) },
-                onMyFavoritesClick = { navController.navigate(Screen.FavoritesScreen.route) }
-            )
+            BottomBarItem(navController = navController)
         }
     ) { innerPadding ->
         Column(
@@ -88,7 +83,8 @@ fun MovieDetailsScreen(
                             )
                         },
                         favoriteIcon = favoriteIcon,
-                        watchListIcon = watchListIcon
+                        watchListIcon = watchListIcon,
+                        title = details.title
                     )
                 }
             }

@@ -7,8 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.lcsmilhan.flickpicks.presentation.FavoriteScreen
 import com.lcsmilhan.flickpicks.presentation.screens.ExplorerScreen
+import com.lcsmilhan.flickpicks.presentation.screens.FavoritesScreen
 import com.lcsmilhan.flickpicks.presentation.screens.MovieDetailsScreen
 import com.lcsmilhan.flickpicks.presentation.screens.WatchListScreen
 
@@ -38,7 +38,7 @@ fun FlickPicksNav() {
             }
         }
         composable(Screen.FavoritesScreen.route) {
-            FavoriteScreen()
+            FavoritesScreen(navController = navController)
         }
         composable(Screen.WatchListScreen.route) {
             WatchListScreen(navController = navController)
